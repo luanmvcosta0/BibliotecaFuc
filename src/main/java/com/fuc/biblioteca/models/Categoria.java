@@ -14,10 +14,9 @@ public class Categoria {
     private String genero;
     private String descricao;
 
-
-
     @OneToMany(mappedBy = "categoria")
     private List<Livro> livros = new ArrayList<>();
+
 
     public Integer getId() {
         return id;

@@ -25,7 +25,7 @@ public class CategoriaService {
     //Service método findById e findByIdDto das categorias
     public Categoria findById(Integer id) {
         return categoriaRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Id não encontrado"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Id da categoria não encontrado"));
     }
 
     public CategoriaDto findByIdDto(Integer id) {
@@ -74,7 +74,7 @@ public class CategoriaService {
     //Service método para deletar uma categoria por id
     public void delete(Integer id) {
         if (!categoriaRepository.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Id não encontrado.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Id da categoria não encontrado.");
         }
 
         categoriaRepository.deleteById(id);

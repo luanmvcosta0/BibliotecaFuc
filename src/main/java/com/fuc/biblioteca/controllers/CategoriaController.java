@@ -2,7 +2,6 @@ package com.fuc.biblioteca.controllers;
 
 import com.fuc.biblioteca.dtos.CategoriaDto;
 import com.fuc.biblioteca.services.CategoriaService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

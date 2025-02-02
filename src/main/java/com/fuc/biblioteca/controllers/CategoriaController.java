@@ -17,9 +17,6 @@ public class CategoriaController {
     @Autowired
     private CategoriaService categoriaService;
 
-    @Autowired
-    private ModelMapper modelMapper;
-
 
     @GetMapping("/{id}")
     public ResponseEntity<CategoriaDto> findById(@PathVariable Integer id) {

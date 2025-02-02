@@ -39,5 +39,11 @@ public class CategoriaController {
         return ResponseEntity.ok(savedCategoriaDto);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<CategoriaDto> update(@PathVariable Integer id, @RequestBody CategoriaDto categoriaDto) {
+        CategoriaDto updateCategoriaDto = categoriaService.update(id, categoriaDto);
+        return ResponseEntity.ok().body(updateCategoriaDto);
+    }
+
 
 }

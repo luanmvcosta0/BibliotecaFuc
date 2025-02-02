@@ -5,10 +5,13 @@ import com.fuc.biblioteca.models.Categoria;
 import com.fuc.biblioteca.repositories.CategoriaRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.lang.module.ResolutionException;
 import java.util.List;
@@ -24,10 +27,10 @@ public class CategoriaService {
     private ModelMapper modelMapper;
 
 
-    //Service método findById e findByIdDto
+    //Service método findById e findByIdDto das categorias
     public Categoria findById(Integer id) {
         return categoriaRepository.findById(id)
-                .orElseThrow(() -> new ResolutionException("Categoria não encontrada."));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Id não encontrado"));
     }
 
     public CategoriaDto findByIdDto(Integer id) {
@@ -36,7 +39,7 @@ public class CategoriaService {
     }
 
 
-    //Service método findAll
+    //Service método findAll das categorias
     public List<CategoriaDto> findAll() {
         return categoriaRepository.findAll()
                 .stream().map(obj -> modelMapper.map(obj, CategoriaDto.class))
@@ -44,7 +47,7 @@ public class CategoriaService {
     }
 
 
-    //Service método save e saveDto
+    //Service método save e saveDto de categoria
     public Categoria save(Categoria categoria) {
         return categoriaRepository.save(categoria);
     }
@@ -55,5 +58,21 @@ public class CategoriaService {
         return modelMapper.map(savedCategoria, CategoriaDto.class);
     }
 
+
+    //Service método para atualizar uma categoria
+    public CategoriaDto update(Integer id, CategoriaDto categoriaDto) {
+        Categoria categoria = categoriaRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Categoria não encontrada"));
+
+        //Atualiza os dados da categoria
+        categoria.setGenero(categoriaDto.getGenero());
+        categoria.setDescricao(categoriaDto.getDescricao());
+
+        //Salva a atualização
+        categoria = categoriaRepository.save(categoria);
+
+        //Retorna um DTO atualizado
+        return modelMapper.map(categoria, CategoriaDto.class);
+    }
 
 }

@@ -54,11 +54,13 @@ public class Livro {
         this.texto = texto;
     }
 
+
     public Livro(Integer id, String titulo, String autor, String texto, Tamanho tamanho, Categoria categoria) {
         this.id = id;
         this.titulo = titulo;
         this.autor = autor;
         this.texto = texto;
+        this.categoria = categoria;
     }
 
     public Livro() {

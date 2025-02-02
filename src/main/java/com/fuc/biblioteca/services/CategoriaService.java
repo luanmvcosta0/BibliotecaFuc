@@ -5,7 +5,10 @@ import com.fuc.biblioteca.models.Categoria;
 import com.fuc.biblioteca.repositories.CategoriaRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.lang.module.ResolutionException;
 import java.util.List;
@@ -21,8 +24,7 @@ public class CategoriaService {
     private ModelMapper modelMapper;
 
 
-
-
+    //Service método findById e findByIdDto
     public Categoria findById(Integer id) {
         return categoriaRepository.findById(id)
                 .orElseThrow(() -> new ResolutionException("Categoria não encontrada."));
@@ -34,11 +36,24 @@ public class CategoriaService {
     }
 
 
-
+    //Service método findAll
     public List<CategoriaDto> findAll() {
         return categoriaRepository.findAll()
                 .stream().map(obj -> modelMapper.map(obj, CategoriaDto.class))
                 .collect(Collectors.toList());
     }
+
+
+    //Service método save
+    public Categoria save(Categoria categoria) {
+        return categoriaRepository.save(categoria);
+    }
+
+    public CategoriaDto saveDto(CategoriaDto categoriaDto) {
+        Categoria categoria = modelMapper.map(categoriaDto, Categoria.class);
+        Categoria savedCategoria = save(categoria);
+        return modelMapper.map(savedCategoria, CategoriaDto.class);
+    }
+
 
 }

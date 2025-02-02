@@ -44,7 +44,7 @@ public class CategoriaService {
     }
 
 
-    //Service método save
+    //Service método save e saveDto
     public Categoria save(Categoria categoria) {
         return categoriaRepository.save(categoria);
     }

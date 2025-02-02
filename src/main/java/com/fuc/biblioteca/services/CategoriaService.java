@@ -75,4 +75,14 @@ public class CategoriaService {
         return modelMapper.map(categoria, CategoriaDto.class);
     }
 
+
+    //Service método para deletar uma categoria por id
+    public void delete(Integer id) {
+        if (!categoriaRepository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Id não encontrado.");
+        }
+
+        categoriaRepository.deleteById(id);
+    }
+
 }

@@ -18,6 +18,7 @@ public class Categoria {
     private List<Livro> livros = new ArrayList<>();
 
 
+
     public Integer getId() {
         return id;
     }

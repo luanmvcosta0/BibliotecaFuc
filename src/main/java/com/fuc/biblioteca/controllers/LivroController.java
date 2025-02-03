@@ -34,4 +34,11 @@ public class LivroController {
         return ResponseEntity.ok().body(savedLivroDto);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<LivroDto> update(@PathVariable Integer id, @RequestBody LivroDto livroDto) {
+        LivroDto updateLivroDto = livroService.update(id, livroDto);
+        return ResponseEntity.ok().body(updateLivroDto);
+    }
+
+
 }

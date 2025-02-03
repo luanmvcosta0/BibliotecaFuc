@@ -58,4 +58,19 @@ public class LivroService {
     }
 
 
+    //Service método update dos livros
+    public LivroDto update(Integer id, LivroDto livroDto) {
+        Livro livro = livroRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Livro não encontrado"));
+
+        livro.setTitulo(livroDto.getTitulo());
+        livro.setAutor(livroDto.getAutor());
+        livro.setTexto(livroDto.getTexto());
+
+        livro = livroRepository.save(livro);
+
+        return modelMapper.map(livro, LivroDto.class);
+    }
+
+
 }

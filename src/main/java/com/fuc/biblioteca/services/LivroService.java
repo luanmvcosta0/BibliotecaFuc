@@ -73,4 +73,14 @@ public class LivroService {
     }
 
 
+    //Service métodos delete dos livros
+    public void delete(Integer id) {
+        if (!livroRepository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Id do Livro não encontrado");
+        }
+
+        livroRepository.deleteById(id);
+    }
+
+
 }

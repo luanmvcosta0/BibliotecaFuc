@@ -46,4 +46,16 @@ public class LivroService {
     }
 
 
+    //Service método save dos livros
+    public Livro save(Livro livro) {
+        return livroRepository.save(livro);
+    }
+
+    public LivroDto saveDto(LivroDto livroDto) {
+        Livro livro = modelMapper.map(livroDto, Livro.class);
+        Livro savedLivro = save(livro);
+        return modelMapper.map(savedLivro, LivroDto.class);
+    }
+
+
 }

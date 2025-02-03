@@ -28,4 +28,10 @@ public class LivroController {
         return ResponseEntity.ok().body(livroService.findAll());
     }
 
+    @PostMapping("")
+    public ResponseEntity<LivroDto> save(@RequestBody LivroDto livroDto) {
+        LivroDto savedLivroDto = livroService.saveDto(livroDto);
+        return ResponseEntity.ok().body(savedLivroDto);
+    }
+
 }

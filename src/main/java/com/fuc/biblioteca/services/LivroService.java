@@ -2,6 +2,7 @@ package com.fuc.biblioteca.services;
 
 import com.fuc.biblioteca.dtos.LivroDto;
 import com.fuc.biblioteca.exceptions.BadRequestException;
+import com.fuc.biblioteca.exceptions.ConflictException;
 import com.fuc.biblioteca.exceptions.ResourceNotFoundException;
 import com.fuc.biblioteca.models.Livro;
 import com.fuc.biblioteca.repositories.LivroRepository;
@@ -48,6 +49,10 @@ public class LivroService {
 
     //Service método save dos livros
     public Livro save(Livro livro) {
+        if (livroRepository.existsByTitulo(livro.getTitulo())) {
+            throw new ConflictException("Ja existe um livro com este titulo.");
+        }
+
         return livroRepository.save(livro);
     }
 

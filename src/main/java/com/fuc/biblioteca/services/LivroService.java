@@ -1,6 +1,7 @@
 package com.fuc.biblioteca.services;
 
 import com.fuc.biblioteca.dtos.LivroDto;
+import com.fuc.biblioteca.exceptions.ResourceNotFoundException;
 import com.fuc.biblioteca.models.Livro;
 import com.fuc.biblioteca.repositories.LivroRepository;
 import org.modelmapper.ModelMapper;
@@ -26,7 +27,7 @@ public class LivroService {
     //Service método findById e findByIdDto dos livros
     public Livro findById(Integer id) {
         return livroRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Id do livro não encontrado."));
+                .orElseThrow(() -> new ResourceNotFoundException("Id do livro não encontrado."));
     }
 
     public LivroDto findByIdDto(Integer id) {
@@ -59,7 +60,7 @@ public class LivroService {
     //Service método update dos livros
     public LivroDto update(Integer id, LivroDto livroDto) {
         Livro livro = livroRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Livro não encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Livro não encontrado"));
 
         livro.setTitulo(livroDto.getTitulo());
         livro.setAutor(livroDto.getAutor());
@@ -74,7 +75,7 @@ public class LivroService {
     //Service métodos delete dos livros
     public void delete(Integer id) {
         if (!livroRepository.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Id do Livro não encontrado");
+            throw new ResourceNotFoundException("Id do Livro não encontrado");
         }
 
         livroRepository.deleteById(id);

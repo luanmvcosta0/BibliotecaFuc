@@ -37,9 +37,10 @@ public class CategoriaService {
 
     //Service método findAll das categorias
     public List<CategoriaDto> findAll() {
-        return categoriaRepository.findAll()
-                .stream().map(obj -> modelMapper.map(obj, CategoriaDto.class))
-                .collect(Collectors.toList());
+        return categoriaRepository.findAll()                                                        //Obtenho todos os livros do Banco
+                .stream()                                                                           //Converto a lista em uma Stream(fluxo de dados)
+                .map(obj -> modelMapper.map(obj, CategoriaDto.class))   //Transformo cada Livro em LivroDto
+                .collect(Collectors.toList());                                              //Converto de volta para uma lista
     }
 
 

@@ -1,6 +1,7 @@
 package com.fuc.biblioteca.services;
 
 import com.fuc.biblioteca.dtos.LivroDto;
+import com.fuc.biblioteca.exceptions.BadRequestException;
 import com.fuc.biblioteca.exceptions.ResourceNotFoundException;
 import com.fuc.biblioteca.models.Livro;
 import com.fuc.biblioteca.repositories.LivroRepository;
@@ -51,6 +52,10 @@ public class LivroService {
     }
 
     public LivroDto saveDto(LivroDto livroDto) {
+        if (livroDto.getTitulo() == null || livroDto.getTitulo().isEmpty()) {
+            throw new BadRequestException("O titulo do livro é obrigatório.");
+        }
+
         Livro livro = modelMapper.map(livroDto, Livro.class);
         Livro savedLivro = save(livro);
         return modelMapper.map(savedLivro, LivroDto.class);

@@ -1,6 +1,7 @@
 package com.fuc.biblioteca.services;
 
 import com.fuc.biblioteca.dtos.CategoriaDto;
+import com.fuc.biblioteca.exceptions.BadRequestException;
 import com.fuc.biblioteca.exceptions.ResourceNotFoundException;
 import com.fuc.biblioteca.models.Categoria;
 import com.fuc.biblioteca.repositories.CategoriaRepository;
@@ -50,6 +51,10 @@ public class CategoriaService {
     }
 
     public CategoriaDto saveDto(CategoriaDto categoriaDto) {
+        if (categoriaDto.getGenero() == null || categoriaDto.getGenero().isEmpty()) {
+            throw new BadRequestException("O gênero da categoria é obrigatorio.");
+        }
+
         Categoria categoria = modelMapper.map(categoriaDto, Categoria.class);
         Categoria savedCategoria = save(categoria);
         return modelMapper.map(savedCategoria, CategoriaDto.class);

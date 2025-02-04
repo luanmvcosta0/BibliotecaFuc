@@ -1,6 +1,7 @@
 package com.fuc.biblioteca.services;
 
 import com.fuc.biblioteca.dtos.CategoriaDto;
+import com.fuc.biblioteca.exceptions.ResourceNotFoundException;
 import com.fuc.biblioteca.models.Categoria;
 import com.fuc.biblioteca.repositories.CategoriaRepository;
 import org.modelmapper.ModelMapper;
@@ -25,7 +26,7 @@ public class CategoriaService {
     //Service método findById e findByIdDto das categorias
     public Categoria findById(Integer id) {
         return categoriaRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Id da categoria não encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Id da categoria não encontrado"));
     }
 
     public CategoriaDto findByIdDto(Integer id) {
@@ -57,7 +58,7 @@ public class CategoriaService {
     //Service método para atualizar uma categoria
     public CategoriaDto update(Integer id, CategoriaDto categoriaDto) {
         Categoria categoria = categoriaRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Categoria não encontrada"));
+                .orElseThrow(() -> new ResourceNotFoundException("Categoria não encontrada"));
 
         //Atualiza os dados da categoria
         categoria.setGenero(categoriaDto.getGenero());
@@ -74,7 +75,7 @@ public class CategoriaService {
     //Service método para deletar uma categoria por id
     public void delete(Integer id) {
         if (!categoriaRepository.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Id da categoria não encontrado.");
+            throw new ResourceNotFoundException("Id da categoria não encontrado.");
         }
 
         categoriaRepository.deleteById(id);

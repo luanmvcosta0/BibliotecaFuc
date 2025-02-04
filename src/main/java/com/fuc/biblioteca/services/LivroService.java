@@ -1,8 +1,6 @@
 package com.fuc.biblioteca.services;
 
-import com.fuc.biblioteca.dtos.CategoriaDto;
 import com.fuc.biblioteca.dtos.LivroDto;
-import com.fuc.biblioteca.models.Categoria;
 import com.fuc.biblioteca.models.Livro;
 import com.fuc.biblioteca.repositories.LivroRepository;
 import org.modelmapper.ModelMapper;

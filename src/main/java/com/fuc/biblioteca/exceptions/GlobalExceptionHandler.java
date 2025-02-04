@@ -14,10 +14,16 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
 
-    //Capturo exceções de requisição invalida (erro 400)
+    //Captura exceções de requisição invalida (erro 400)
     @ExceptionHandler(BadRequestException.class)
-    public ResponseEntity<String> handlerBadRequest(BadRequestException ex) {
+    public ResponseEntity<String> handleBadRequest(BadRequestException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+    //Captura exceções de conflitp (erro 409)
+    @ExceptionHandler(ConflictException.class)
+    public ResponseEntity<String> handleConflict(ConflictException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
     }
 
 

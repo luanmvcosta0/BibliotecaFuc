@@ -2,6 +2,7 @@ package com.fuc.biblioteca.services;
 
 import com.fuc.biblioteca.dtos.CategoriaDto;
 import com.fuc.biblioteca.exceptions.BadRequestException;
+import com.fuc.biblioteca.exceptions.ConflictException;
 import com.fuc.biblioteca.exceptions.ResourceNotFoundException;
 import com.fuc.biblioteca.models.Categoria;
 import com.fuc.biblioteca.repositories.CategoriaRepository;
@@ -47,6 +48,10 @@ public class CategoriaService {
 
     //Service método save e saveDto de categoria
     public Categoria save(Categoria categoria) {
+        if (categoriaRepository.existsByGenero(categoria.getGenero())) {
+            throw new ConflictException("Ja existe uma categoria com este genero");
+        }
+
         return categoriaRepository.save(categoria);
     }
 
